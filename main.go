@@ -60,6 +60,7 @@ func main() {
 			})
 		}
 	})
+	r.Run(":8080")
 }
 
 func getEnv(key, defaultValue string) string {
