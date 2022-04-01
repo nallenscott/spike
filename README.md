@@ -7,7 +7,7 @@ Spike is an example app demo'ing how to use Docker, Go, and Aerospike to create 
 
 I've skipped a few steps for the sake of just getting something working. The app loads a single record into the DB, and only accepts requests for that record. I'm also not an expert in Go or Aerospike, so there is definitely room for improvement in the utilization of the language and DB.
 
-As a next step, I would probably throw in request validation and a simple error service.
+As a next step, I might tinker with request validation and a simple error service.
 
 ## Quick start
 ```
