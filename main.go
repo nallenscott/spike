@@ -9,14 +9,6 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// This is only for this example.
-// Please handle errors properly.
-func panicOnError(err error) {
-	if err != nil {
-		panic(err)
-	}
-}
-
 func main() {
 	client, err := aero.NewClient(
 		getEnv("AEROSPIKE_HOST", "127.0.0.1"),
@@ -49,11 +41,22 @@ func main() {
 		panicOnError(err)
 
 		rec, err := client.Get(nil, req_key)
-		panicOnError(err)
+		if err != nil {
+			c.JSON(http.StatusNotFound, gin.H{
+				"error": "not found",
+			})
+			return
+		}
+
+		if rec.Bins["api_key"] != api_key {
+			c.JSON(http.StatusUnauthorized, gin.H{
+				"error": "invalid key",
+			})
+			return
+		}
 
 		if rec.Bins["api_key"] == api_key {
 			c.JSON(http.StatusOK, gin.H{
-				"api_key":    rec.Bins["api_key"],
 				"first_name": rec.Bins["first_name"],
 				"last_name":  rec.Bins["last_name"],
 				"company":    rec.Bins["company"],
@@ -69,4 +72,10 @@ func getEnv(key, defaultValue string) string {
 		return defaultValue
 	}
 	return value
+}
+
+func panicOnError(err error) {
+	if err != nil {
+		panic(err)
+	}
 }
