@@ -3,6 +3,7 @@ package main
 import (
 	"net/http"
 	"os"
+	"strconv"
 
 	aero "github.com/aerospike/aerospike-client-go/v5"
 	"github.com/gin-gonic/gin"
@@ -23,7 +24,7 @@ func main() {
 	)
 	panicOnError(err)
 
-	key, err := aero.NewKey("test", "users", "1")
+	key, err := aero.NewKey("test", "users", 1)
 	panicOnError(err)
 
 	bins := aero.BinMap{
@@ -39,7 +40,9 @@ func main() {
 	r := gin.Default()
 
 	r.GET("/user/:id", func(c *gin.Context) {
-		id := c.Param("id")
+		id, err := strconv.Atoi(c.Param("id"))
+		panicOnError(err)
+
 		api_key := c.Query("api_key")
 
 		req_key, err := aero.NewKey("test", "users", id)
