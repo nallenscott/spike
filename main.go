@@ -53,7 +53,10 @@ func main() {
 
 		if rec.Bins["api_key"] == api_key {
 			c.JSON(http.StatusOK, gin.H{
-				"api_key": api_key,
+				"api_key":    rec.Bins["api_key"],
+				"first_name": rec.Bins["first_name"],
+				"last_name":  rec.Bins["last_name"],
+				"company":    rec.Bins["company"],
 			})
 		}
 	})
