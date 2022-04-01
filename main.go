@@ -2,6 +2,7 @@ package main
 
 import (
 	"net/http"
+	"os"
 
 	aero "github.com/aerospike/aerospike-client-go/v5"
 	"github.com/gin-gonic/gin"
@@ -16,7 +17,10 @@ func panicOnError(err error) {
 }
 
 func main() {
-	client, err := aero.NewClient("127.0.0.1", 3000)
+	client, err := aero.NewClient(
+		getEnv("AEROSPIKE_HOST", "127.0.0.1"),
+		3000,
+	)
 	panicOnError(err)
 
 	key, err := aero.NewKey("test", "users", "1")
@@ -50,5 +54,12 @@ func main() {
 			})
 		}
 	})
-	r.Run(":5050")
+}
+
+func getEnv(key, defaultValue string) string {
+	value := os.Getenv(key)
+	if value == "" {
+		return defaultValue
+	}
+	return value
 }
