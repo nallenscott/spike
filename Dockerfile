@@ -28,13 +28,5 @@ RUN go build -o main .
 # Expose port 8080 to the outside world
 EXPOSE 8080
 
-# The recommended approach from docker according to their docs on Control
-# startup and shutdown order in Compose is to download wait-for-it.sh which takes
-# in the domain:port to poll and then executes the next set of commands
-# if successful.
-COPY wait-for-it.sh wait-for-it.sh 
-RUN chmod +x wait-for-it.sh
-
 # Run the executable
-ENTRYPOINT [ "/bin/bash", "-c" ]
-CMD ["./wait-for-it.sh" , "aerospike:3000" , "--strict" , "--timeout=300" , "--" , "./main"]
+CMD ["./main"]

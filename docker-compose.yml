@@ -15,9 +15,9 @@ services:
       - backend
     ports:
       - 8080:8080
+    restart: unless-stopped
   
   aerospike:
-    container_name: aerospike
     image: aerospike/aerospike-server
     networks:
       - backend
