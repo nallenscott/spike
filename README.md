@@ -16,7 +16,7 @@ $ docker-compose up -d
 
 ## Fetching data
 ```
-$ curl http://localhost:8080/user/1?api_key=12345
+$ curl "http://localhost:8080/user/1?api_key=12345"
 {
   "first_name": "John",
   "last_name": "Doe",
