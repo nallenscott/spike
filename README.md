@@ -1,8 +1,9 @@
 <h1 align="center">
   <img src="spike.png" alt="">
   <br>spike<br>
-  <p style="margin-top: 10px; font-size: 13px;">Aww, it's purple, Daddy! Can I have one at my house, please?! – 👧</p>
 </h1>
+
+> Aww, it's purple, Daddy! Can I have one at my house, please?! – 👧
 
 Spike is an example app demo'ing how to use Docker, Go, and Aerospike to create a simple REST service. The repo contains a simple application written in Go that contains a single API to return user data.
 
